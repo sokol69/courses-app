@@ -10,11 +10,18 @@ router.post("/add", async (req, res) => {
   res.redirect("/card");
 });
 
+router.delete("/remove/:id", async (req, res) => {
+  const card = await Card.remove(req.params.id);
+  res.status(200).json(card);
+});
+
 router.get("/", async (req, res) => {
-  const card = await Course.fetch();
+  const card = await Card.fetch();
   res.render("card", {
     title: "Card",
-    card,
+    isCard: true,
+    courses: card.courses,
+    price: card.price,
   });
 });
 
