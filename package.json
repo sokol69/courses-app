@@ -15,8 +15,11 @@
   "author": "Dmitry Sokolov <sokolov333d@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
+    "handlebars": "^4.7.6",
+    "mongoose": "^5.9.21",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
