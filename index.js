@@ -10,6 +10,7 @@ const homeRoutes = require("./routes/home");
 const coursesRoutes = require("./routes/courses");
 const addRoutes = require("./routes/add");
 const cardRoutes = require("./routes/card");
+const User = require("./models/user");
 
 const app = express();
 
@@ -29,6 +30,16 @@ app.engine(
 app.set("view engine", "handlebars");
 app.set("views", "views");
 
+app.use(async (req, res, next) => {
+  try {
+    const user = await User.findById("5efeb767cb21a38f8ddcee33");
+    req.user = user;
+    next();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use("/", homeRoutes);
@@ -43,7 +54,20 @@ async function start() {
     await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     });
+
+    const candidate = await User.findOne();
+
+    if (!candidate) {
+      const user = new User({
+        email: "dmitry@maul.ru",
+        name: "Dmitry",
+        cart: { items: [] },
+      });
+
+      await user.save();
+    }
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);

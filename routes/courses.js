@@ -4,7 +4,10 @@ const Course = require("../models/course");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const courses = await Course.find();
+  const courses = await Course.find()
+    .populate("userId", "email name")
+    .select("price title img");
+
   res.render("courses", {
     title: "Courses",
     isCourses: true,
@@ -30,6 +33,15 @@ router.post("/edit", async (req, res) => {
   delete req.body.id;
   await Course.findByIdAndUpdate(id, req.body);
   res.redirect("/courses");
+});
+
+router.post("/remove", async (req, res) => {
+  try {
+    await Course.deleteOne({ _id: req.body.id });
+    res.redirect("/courses");
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.get("/:id", async (req, res) => {

@@ -40,3 +40,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.course_form-edit {
+  margin-bottom: 2rem;
+}
