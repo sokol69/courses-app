@@ -1,4 +1,4 @@
-<h1>Card</h1>
+<h1>Cart</h1>
 
 <div id="card">
   {{#if courses.length}}
@@ -27,6 +27,10 @@
       <strong>Price:</strong>
       <span class="price">{{price}}</span>
     </p>
+
+    <form action="/orders" method="POST">
+      <button type="submit" class="btn">Make Order</button>
+    </form>
 
   {{else}}
     <p>Card is empty</p>
