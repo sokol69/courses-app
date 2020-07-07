@@ -11,6 +11,7 @@ const coursesRoutes = require("./routes/courses");
 const addRoutes = require("./routes/add");
 const cartRoutes = require("./routes/cart");
 const orderRoutes = require("./routes/orders");
+const authRoutes = require("./routes/auth");
 const User = require("./models/user");
 
 const app = express();
@@ -48,6 +49,7 @@ app.use("/courses", coursesRoutes);
 app.use("/add", addRoutes);
 app.use("/card", cartRoutes);
 app.use("/orders", orderRoutes);
+app.use("/auth", authRoutes);
 
 async function start() {
   try {
