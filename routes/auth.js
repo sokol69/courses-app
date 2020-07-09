@@ -17,15 +17,52 @@ router.get("/logout", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const user = await User.findById("5efeb767cb21a38f8ddcee33");
-    req.session.user = user;
-    req.session.isAuthenticated = true;
-    req.session.save((err) => {
-      if (err) {
-        throw err;
+    const { email, password } = req.body;
+    const candidate = await User.findOne({ email });
+
+    if (candidate) {
+      const areSame = password === candidate.password;
+
+      if (areSame) {
+        const user = candidate;
+        req.session.user = user;
+        req.session.isAuthenticated = true;
+        req.session.save((err) => {
+          if (err) {
+            throw err;
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.redirect("/auth/login#login");
       }
-      res.redirect("/");
-    });
+    } else {
+      res.redirect("/auth/login#login");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/register", async (req, res) => {
+  try {
+    const { email, password, confirm, name } = req.body;
+    const candidate = await User.findOne({ email });
+
+    if (candidate) {
+      res.redirect("/auth/login#register");
+    } else {
+      const user = new User({
+        email,
+        password,
+        name,
+        cart: {
+          items: [],
+        },
+      });
+      await user.save();
+      res.redirect("/auth/login#login");
+    }
   } catch (error) {
     console.log(error);
   }
