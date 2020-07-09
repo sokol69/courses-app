@@ -20,6 +20,9 @@
           <label for="password">Password</label>
           <span class="helper-text" data-error="Enter password"></span>
         </div>
+
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
@@ -49,6 +52,9 @@
           <label for="name">Name</label>
           <span class="helper-text" data-error="Enter name"></span>
         </div>
+
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+
         <button type="submit" class="btn btn-primary">Register</button>
       </form>
     </div>
