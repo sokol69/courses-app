@@ -48,3 +48,12 @@
 .auth {
   padding-top: 1rem;
 }
+
+.alert {
+  margin-bottom: 1rem;
+  padding: .5rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  color: red;
+  background-color: rgba(255, 0, 0, 0.3);
+}

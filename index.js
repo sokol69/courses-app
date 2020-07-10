@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const csrf = require("csurf");
+const flash = require("connect-flash");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
@@ -15,7 +16,6 @@ const addRoutes = require("./routes/add");
 const cartRoutes = require("./routes/cart");
 const orderRoutes = require("./routes/orders");
 const authRoutes = require("./routes/auth");
-const User = require("./models/user");
 const varMiddleware = require("./middleware/variables");
 const userMiddleware = require("./middleware/user");
 
@@ -53,6 +53,7 @@ app.use(
   })
 );
 app.use(csrf());
+app.use(flash());
 app.use(varMiddleware);
 app.use(userMiddleware);
 
