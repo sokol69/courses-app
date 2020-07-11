@@ -31,3 +31,9 @@ exports.registerValidators = [
     .trim(),
   body("name").isLength({ min: 3 }).withMessage("Incorrect Name"),
 ];
+
+exports.courseValidators = [
+  body("name").isLength({ min: 3 }).withMessage("Min name 3 symbols"),
+  body("price").isNumeric().withMessage("Incorrect price"),
+  body("img", "Incorrect img URL").isURL(),
+];
