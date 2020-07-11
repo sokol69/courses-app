@@ -6,6 +6,7 @@ yarn.lock
 dist
 
 keys/keys.dev.js
+keys/index.js
 
 .env
 .env.production
