@@ -1,6 +1,12 @@
 const { Router } = require("express");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
+const mailgun = require("mailgun-js");
+
 const User = require("../models/user");
+const { MAILGUN_API_KEY, MAILGUN_DOMAIN } = require("../keys");
+const regEmail = require("../emails/registration");
+const mg = mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN });
 const router = Router();
 
 router.get("/login", async (req, res) => {
@@ -68,6 +74,9 @@ router.post("/register", async (req, res) => {
         },
       });
       await user.save();
+      await mg.messages().send(regEmail(email), function (error, body) {
+        console.log(body);
+      });
       res.redirect("/auth/login#login");
     }
   } catch (error) {
