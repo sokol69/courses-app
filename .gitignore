@@ -5,6 +5,8 @@ package-lock.json
 yarn.lock
 dist
 
+keys/keys.dev.js
+
 .env
 .env.production
 .env.staging
