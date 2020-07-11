@@ -33,6 +33,16 @@
           </li>
         {{/if}}
 
+        {{#if isProfile}}
+          <li class="active">
+            <a href="/profile">Profile</a>
+          </li>
+        {{else}}
+          <li>
+            <a href="/profile">Profile</a>
+          </li>
+        {{/if}}
+
         {{#if isCart}}
           <li class="active">
             <a href="/card">Cart</a>
