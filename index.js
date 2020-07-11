@@ -23,7 +23,7 @@ const keys = require("./keys");
 const app = express();
 const hbs = ehbs.create({
   defaultLayout: "main",
-  extname: "hbs",
+  extname: "handlebars",
 });
 const store = new MongoStore({
   collection: "sessions",
@@ -36,6 +36,7 @@ app.engine(
   "handlebars",
   ehbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: require("./utils/hbs-helpers"),
   })
 );
 app.set("view engine", "handlebars");
